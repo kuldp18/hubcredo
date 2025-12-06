@@ -10,7 +10,7 @@ export class ApiError extends Error {
   }
 }
 
-const BASE_URL = import.meta.env.ENV === 'development' ? import.meta.env.DEV_API_URL : import.meta.env.PROD_API_URL;
+const BASE_URL = import.meta.env.VITE_API_URL;
 
 interface RequestOptions extends RequestInit {
   data?: any;
