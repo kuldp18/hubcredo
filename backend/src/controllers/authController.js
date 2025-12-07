@@ -52,7 +52,7 @@ export const signup = asyncHandler(async (req, res) => {
   res.cookie("accessToken", accessToken, {
     httpOnly: true,
     secure: isProduction,
-    sameSite: "strict",
+    sameSite: isProduction ? "none" : "lax",
     maxAge: parseDuration(
       isProduction
         ? process.env.JWT_ACCESS_EXPIRE_PROD
@@ -63,7 +63,7 @@ export const signup = asyncHandler(async (req, res) => {
   res.cookie("refreshToken", refreshToken, {
     httpOnly: true,
     secure: isProduction,
-    sameSite: "strict",
+    sameSite: isProduction ? "none" : "lax",
     maxAge: parseDuration(process.env.JWT_REFRESH_EXPIRE),
   });
 
@@ -115,7 +115,7 @@ export const login = asyncHandler(async (req, res) => {
   res.cookie("accessToken", accessToken, {
     httpOnly: true,
     secure: isProduction,
-    sameSite: "strict",
+    sameSite: isProduction ? "none" : "lax",
     maxAge: parseDuration(
         isProduction
           ? process.env.JWT_ACCESS_EXPIRE_PROD
@@ -126,7 +126,7 @@ export const login = asyncHandler(async (req, res) => {
   res.cookie("refreshToken", refreshToken, {
     httpOnly: true,
     secure: isProduction,
-    sameSite: "strict",
+    sameSite: isProduction ? "none" : "lax",
     maxAge: parseDuration(process.env.JWT_REFRESH_EXPIRE),
   });
 
@@ -200,7 +200,7 @@ export const refreshAccessToken = asyncHandler(async (req, res) => {
   res.cookie("accessToken", newAccessToken, {
     httpOnly: true,
     secure: isProduction,
-    sameSite: "strict",
+    sameSite: isProduction ? "none" : "lax",
     maxAge: parseDuration(
         isProduction
           ? process.env.JWT_ACCESS_EXPIRE_PROD
