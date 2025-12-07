@@ -153,9 +153,19 @@ export const logout = asyncHandler(async (req, res) => {
   // Remove refresh token from database
   await User.findByIdAndUpdate(userId, { refreshToken: null });
 
+  const isProduction = process.env.NODE_ENV === "production";
+  
   // Clear cookies
-  res.clearCookie("accessToken");
-  res.clearCookie("refreshToken");
+  res.clearCookie("accessToken", {
+    httpOnly: true,
+    secure: isProduction,
+    sameSite: isProduction ? "none" : "lax",
+  });
+  res.clearCookie("refreshToken", {
+    httpOnly: true,
+    secure: isProduction,
+    sameSite: isProduction ? "none" : "lax",
+  });
 
   return sendSuccess(res, 200, "Logout successful");
 });
